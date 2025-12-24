@@ -20,9 +20,7 @@ public class CommonStepDefinitions {
         Assert.assertNotNull(homePage, "HomePage should be initialized");
     }
 
-    public HomePage getHomePage() {
+    HomePage getHomePage() {
         return homePage;
     }
 }
-
-
