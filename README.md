@@ -192,21 +192,46 @@ target/site/allure-maven-plugin/
 - `allure-testng:2.27.0`
 - `webdrivermanager:5.9.2`
 
+
+## 🥒 BDD Implementation (Cucumber)
+
+This project includes a BDD layer using Cucumber for testing defects and enhancements.
+
+### Architecture
+- **Dependencies**: `cucumber-java`, `cucumber-testng`, `allure-cucumber7-jvm`
+- **Runner**: `CucumberTestRunner.java`
+- **Features**: Located in `src/test/resources/features`
+    - `search_functionality.feature` (Defect 1)
+    - `cookie_banner.feature` (Defect 2)
+
+### Running BDD Tests
+```bash
+# Run all BDD tests
+mvn test -Dtest=CucumberTestRunner
+
+# Run specific tags
+mvn test -Dcucumber.filter.tags="@defect-1"
+```
+
+### Reports
+Cucumber HTML reports are generated in `target/cucumber-reports/index.html`. Allure reports integrate BDD steps automatically.
+
 ## 🐛 Troubleshooting
 
-### Проблемы с драйверами
-WebDriverManager автоматически скачивает необходимые драйверы. Если возникают проблемы:
-- Проверьте подключение к интернету
-- Убедитесь, что браузер установлен и обновлен
+### Driver Issues
+WebDriverManager automatically handles drivers. Ensure internet connection is active.
 
-### Тесты не находят элементы
-- Убедитесь, что сайт доступен
-- Проверьте, что страница полностью загрузилась (добавлены ожидания)
-- Проверьте локаторы элементов
+### Firefox Issues
+If Firefox fails to start, ensure you have the latest version installed or switch to Chrome:
+```bash
+mvn test -Dbrowser=chrome
+```
 
-### Проблемы с Firefox
-Если Firefox не запускается:
-- Установите Firefox последней версии
-- Проверьте, что geckodriver совместим с версией Firefox
+### Cookie Banner Flakiness
+The framework automatically accepts cookies by default. To disable this behavior (e.g., for testing the banner itself), use:
+```bash
+mvn test -DautoAcceptCookies=false
+```
+
 
 
